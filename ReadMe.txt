@@ -1,3 +1,5 @@
+WORK IN PROGRESS
+
 1. This application is a password manager. That also encrypts when a note is saved.
 
 2. On first time use the user will be asked to set a 
