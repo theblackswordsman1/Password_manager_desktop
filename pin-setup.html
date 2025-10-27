@@ -1,0 +1,74 @@
+<!--
+// FIRST LAUNCH -> "pin-setup.html"
+// ------------------------------------
+// 1. User sets 4-digit PIN.
+// 2. Store PIN "salted"+"hashed".
+// 3. Redirect to backup questions page (backup-setup.html).
+// ------------------------------------
+NOTES: 
+type="text"                 Allows maxlength to work
+pattern="\d{4}"             Must be exactly 4 digits (browser validation)
+inputmode="numeric"         Shows number keypad on phones
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pin-setup.html</title>
+
+    <link rel="stylesheet" href="main-form.css">
+</head>
+<body>
+    <h1>On first time use you have to set a 4-digit PIN code. This is used to log into the application.</h1> 
+    
+    <form id="pinCode">
+        <label>Type your PIN code:</label>
+        <input type="text" id="pin1" maxlength="4" inputmode="numeric" oninput="filterInput(this)">
+
+        <label>Repeat your PIN code:</label>
+        <input type="text" id="pin2" maxlength="4" inputmode="numeric" oninput="filterInput(this)">
+
+        <div class="button-container">
+            <button type="button" class="button save" onclick="savePIN()">Save</button>
+        </div>
+    </form>
+
+    <script>
+        function filterInput(input) {
+            input.value = input.value.replace(/\D/g, '').slice(0, 4);
+        }
+
+        function savePIN() {
+            const pin1 = document.getElementById("pin1").value;
+            const pin2 = document.getElementById("pin2").value;
+
+        // Check: Exactly 4 digits
+        if (pin1.length !== 4 || pin2.length !== 4) {
+            alert("PIN must be exactly 4 digits!");
+            return;
+        }
+
+        // Check: Match
+        if (pin1 !== pin2) {
+            alert("PIN codes do not match!");
+            return;
+        }
+
+        // Store only one PIN copy after checking
+            const PIN = {
+            PIN1: pin1
+        };
+
+        // Save to storage
+        localStorage.setItem("PIN", JSON.stringify(PIN));
+
+        alert("PIN set!");
+        document.getElementById("pinCode").reset();
+        window.location.href = "index.html";
+    }
+    </script>
+</body>
+</html>

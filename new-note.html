@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>new-note.html</title>
+    
+    <link rel="stylesheet" href="main-form.css">
+</head>
+<body>
+    <h2>Create a new note</h2>
+
+    <form id="noteForm">
+        <label>Title:</label>
+        <input type="text" id="title" placeholder="Enter title...">
+
+        <label>Note:</label>
+        <textarea id="note" placeholder="Write your note..."></textarea>
+
+        <label>Email:</label>
+        <input type="email" id="email" placeholder="Optional">
+
+        <label>Password:</label>
+        <input type="text" id="password" placeholder="Optional">
+
+        <label>NB:</label>
+        <textarea id="nb" placeholder="Additional info..."></textarea>
+
+        <div class="button-container">
+            <button type="button" class="save" onclick="saveNote()">Save</button>
+            <button type="button" class="discard" onclick="discardNote()">Discard</button>
+        </div>
+    </form>
+
+    <script>
+        function saveNote() {
+            const note = {
+                title: document.getElementById("title").value,
+                note: document.getElementById("note").value,
+                email: document.getElementById("email").value,
+                password: document.getElementById("password").value,
+                nb: document.getElementById("nb").value
+            };
+
+            // Load existing notes
+            const savedNotes = JSON.parse(localStorage.getItem("notes") || "[]");
+            savedNotes.push(note);
+
+            // Save to local storage
+            localStorage.setItem("notes", JSON.stringify(savedNotes));
+
+            alert("Note saved!");
+            document.getElementById("noteForm").reset();
+            window.location.href = "index.html";
+        }
+
+        function discardNote() {
+            if (confirm("Are you sure you want to discard this note?")) {
+                document.getElementById("noteForm").reset();
+                window.location.href = "index.html";
+            }
+        }
+    </script>
+</body>
+</html>

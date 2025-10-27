@@ -1,0 +1,22 @@
+function loadSavedNotes() {
+    const savedUrl = url.format({
+        pathname: path.join(__dirname, 'saved-notes.html'),
+        protocol: 'file',
+    });
+}
+
+
+// This function filters and limits what the user types
+        // e.target.value gets the current text in the input field
+        // e.target is input element, .value is what user typed
+        function enforceMaxLength() {
+            let value = e.target.value
+
+            // Remove non-digits + cut to 4
+            // \D means any character that is not a digit
+            // Removes letters, symbols, spaces, etc.
+            e.target.value = value.replace(/\D/g, '').slice(0, 4);
+        }
+
+        document.getElementById("pin1").addEventListener("input", enforceMaxLength);
+        document.getElementById("pin2").addEventListener("input", enforceMaxLength);

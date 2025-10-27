@@ -1,0 +1,37 @@
+<!--
+// APP UI -> "index.html"
+// ------------------------------------
+// 1. Create/view notes. Stored notes are encrypted.
+// ------------------------------------
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password manager</title>
+
+    <link rel="stylesheet" href="main-form.css">
+</head>
+<body>
+    <button class="button" type="button" onclick="accessNotes()">Access saved notes</button>
+    <script>
+        function accessNotes() {
+            // Go to another page
+            window.location.href = "saved-notes.html";
+        }
+    </script>
+    
+    <button class="button" type="button" onclick="makeNote()">Make a new note</button>
+    <script>
+        function makeNote() {
+            // Opens new-note.html
+            window.location.href = "new-note.html";
+        }
+    </script>
+    
+    <button class="button" type="button">Edit a note</button>
+    <button class="button" type="button">Delete a note</button>
+</body>
+</html>
