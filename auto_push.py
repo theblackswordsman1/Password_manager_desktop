@@ -1,23 +1,30 @@
-import subprocess
-import datetime
+import subprocess, datetime, sys
 
-def run(cmd):
-    result = subprocess.run(cmd, shell=True)
-    if result.returncode != 0:
-        print(f"Command failed: {cmd}")
-        exit(1)
+def run(cmd, check=True, capture=False):
+    return subprocess.run(
+        cmd, shell=True, check=check,
+        capture_output=capture, text=True
+    )
 
-# Commit message with timestamp
-timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-commit_message = f"Auto commit at {timestamp}"
+def changed_files():
+    r = run("git status --porcelain", check=False, capture=True)
+    return r.stdout.strip()
 
-print("Staging all changes...")
-run("git add .")
+ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+msg = f"Auto commit at {ts}"
 
-print("Committing...")
-run(f'git commit -m "{commit_message}"')
+print("Pulling remote (rebase)…")
+run("git pull --rebase --autostash origin main", check=False)
 
-print("Pushing to GitHub...")
-run("git push")
+if changed_files():
+    print("Staging changes…")
+    run("git add .")
+    print("Committing…")
+    run(f'git commit -m "{msg}"')
+else:
+    print("No changes to commit.")
 
-print("Done! Repository updated.")
+print("Pushing to GitHub…")
+run("git push", check=False)
+
+print("✅ Done! Repository updated.")
