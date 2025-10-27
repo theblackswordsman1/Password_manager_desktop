@@ -31,7 +31,19 @@
         }
     </script>
     
-    <button class="button" type="button">Edit a note</button>
-    <button class="button" type="button">Delete a note</button>
+    <button class="button" type="button" onclick="editNote()">Edit a note</button>
+    <script>
+        function editNote() {
+            // Opens edit-note.html
+            window.location.href = "edit-note.html";
+        }
+    </script>
+    <button class="button" type="button" onclick="deleteNote()">Delete a note</button>
+    <script>
+        function deleteNote() {
+            // Opens delete-note.html
+            window.location.href = "delete-note.html";
+        }
+    </script>
 </body>
 </html>
