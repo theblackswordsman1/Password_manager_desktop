@@ -10,7 +10,7 @@ function createMainWindow() {
     });
 
     const startUrl = url.format({
-        pathname: path.join(__dirname, 'pin-setup.html'),
+        pathname: path.join(__dirname, 'HTML/pin-setup.html'),
         protocol: 'file',
     });
 
